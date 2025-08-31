@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteProduct = exports.replaceProduct = exports.updateProduct = exports.createProduct = exports.getProductById = exports.getAllProducts = void 0;
+const product_model_1 = require("../models/product.model");
+const getAllProducts = () => product_model_1.Product.find();
+exports.getAllProducts = getAllProducts;
+const getProductById = (id) => product_model_1.Product.findById(id);
+exports.getProductById = getProductById;
+const createProduct = (data) => product_model_1.Product.create(data);
+exports.createProduct = createProduct;
+const updateProduct = (id, data) => product_model_1.Product.findByIdAndUpdate(id, { $set: data }, { new: true });
+exports.updateProduct = updateProduct;
+const replaceProduct = (id, data) => product_model_1.Product.findOneAndReplace({ _id: id }, data, { new: true });
+exports.replaceProduct = replaceProduct;
+const deleteProduct = (id) => product_model_1.Product.findByIdAndDelete(id);
+exports.deleteProduct = deleteProduct;
