@@ -3,6 +3,7 @@ package com.example.orderservice.service;
 import com.example.orderservice.model.Order;
 import com.example.orderservice.model.OrderItem;
 import com.example.orderservice.model.OrderStatus;
+import com.example.orderservice.logger.LoggerService;
 import com.example.orderservice.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,28 +19,36 @@ public class OrderService {
     @Autowired // OrderRepository beanini Spring otomatik inject edecek
     private OrderRepository orderRepository;
 
+    @Autowired
+    private LoggerService logger;
+
     // 1. Belirli bir kullanıcıya ait tüm siparişleri getir
     public List<Order> getOrdersByUserId(String userId) {
+        logger.info("order getting by user id", userId);
         return orderRepository.findByUserId(userId);
     }
 
     // 2. Tüm siparişleri sayfalama (pagination) ile getir
     public Page<Order> getAllOrders(int page, int size) {
+        logger.info("all orders getting !");
         return orderRepository.findAll(PageRequest.of(page, size));
     }
 
     // 3. Belirli bir siparişi ID ile getir
     public Optional<Order> getOrderById(Long orderId) {
+        logger.info("order getting by id", orderId);
         return orderRepository.findById(orderId);
     }
 
     public Optional<OrderStatus> getOrderStatusByOrderId(Long orderId) {
+        logger.info("order status getting by order id", orderId);
         return orderRepository.findById(orderId).map(Order::getStatus);
     }
 
     // 4. Yeni bir sipariş oluştur
     public Order createOrder(Order order) {
         order.setStatus(OrderStatus.CREATED); // yeni sipariş statusünü CREATED yapıyoruz
+        logger.info("order creating !");
         return orderRepository.save(order);   // save metodu ile persist ediyoruz
     }
 
@@ -50,10 +59,12 @@ public class OrderService {
         if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
             order.addItem(newItem);
-
             orderRepository.save(order);
+
+            logger.info("Item added to order: " + orderId);
             return Optional.of(order);
         }
+        logger.warn("Order item not found : " + orderId);
         return Optional.empty();
     }
 
@@ -64,8 +75,11 @@ public class OrderService {
             Order order = optionalOrder.get();
             order.setStatus(OrderStatus.CANCELLED); // statusü CANCELLED yapıyoruz
             orderRepository.save(order);            // değişikliği kaydediyoruz
+
+            logger.info("Order cancelled: " + orderId);
             return Optional.of(order);
         }
+        logger.warn("Order not found: " + orderId);
         return Optional.empty(); // sipariş bulunmazsa boş dön
     }
 
@@ -86,10 +100,11 @@ public class OrderService {
                 // Order içinden çıkar ve ilişkiyi temizle
                 order.removeItem(itemToRemove);
 
+                logger.info("item removed from order: " + itemId);
                 // Değişiklikleri kaydet
                 orderRepository.save(order);
             }
-
+            logger.warn("item not found in order: " + itemId);
             return Optional.of(order);
         }
 
