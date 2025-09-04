@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "concurrently \"npm run start:node\" \"npm run start:spring\"",
+    "start:node": "cd productservice/src && npm install && node index.ts",
+    "start:spring": "cd orderservice && mvn spring-boot:run",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -20,6 +23,7 @@
   },
   "devDependencies": {
     "@types/pg": "^8.15.5",
+    "concurrently": "^9.2.1",
     "typescript": "^5.9.2"
   }
 }

@@ -1,0 +1,27 @@
+from sqlalchemy.ext.asyncio import AsyncSession
+from crud import crud_create_user, crud_get_user_by_email, crud_get_users, crud_get_user_by_id, crud_update_user_by_id
+from schemas.user_schema import UserCreate, UserResponse, UserUpdate
+from utils.password import hash_password
+
+class UserService:
+    def __init__(self, db: AsyncSession):
+        self.db = db
+
+    async def create_user(self, user_data: UserCreate):
+        existing_user = await crud_get_user_by_email(self.db, user_data.email)
+        if existing_user:
+            return None
+        hashed = hash_password(user_data.password)
+        return await crud_create_user(self.db, user_data, hashed)
+
+    async def get_users(self):
+        return await crud_get_users(self.db)
+
+    async def get_user_by_id(self, id: int):
+        return await crud_get_user_by_id(self.db, id)
+    
+    async def get_user_by_email(self, email: str):
+        return await crud_get_user_by_email(self.db, email)
+
+    async def update_user_by_id(self, id: int, user_data: UserUpdate):
+        return await crud_update_user_by_id(self.db, id, user_data)
