@@ -17,7 +17,13 @@ class UserResponse(BaseModel):
         orm_mode = True
 
 # Response Schema for user data
+class UserReplace(BaseModel):
+    name: str
+    email: EmailStr
+    password: str
+
+# Response Schema for user data
 class UserUpdate(BaseModel):
-    name: Optional[str]
-    email: Optional[str]
-    password: Optional[str]
+    name: Optional[str] = None
+    email: Optional[str] = None
+    password: Optional[str] = None

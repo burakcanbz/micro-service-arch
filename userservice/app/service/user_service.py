@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from crud import crud_create_user, crud_get_user_by_email, crud_get_users, crud_get_user_by_id, crud_update_user_by_id
-from schemas.user_schema import UserCreate, UserResponse, UserUpdate
+from crud import crud_create_user, crud_get_user_by_email, crud_get_users, crud_get_user_by_id, crud_replace_user_by_id, crud_update_user_by_id, crud_delete_user_by_id
+from schemas.user_schema import UserCreate, UserResponse, UserUpdate, UserReplace
 from utils.password import hash_password
 
 class UserService:
@@ -23,5 +23,11 @@ class UserService:
     async def get_user_by_email(self, email: str):
         return await crud_get_user_by_email(self.db, email)
 
+    async def replace_user_by_id(self, id: int, user_data: UserReplace):
+        return await crud_replace_user_by_id(self.db, id, user_data)
+    
     async def update_user_by_id(self, id: int, user_data: UserUpdate):
         return await crud_update_user_by_id(self.db, id, user_data)
+    
+    async def delete_user_by_id(self, id: int):
+        return await crud_delete_user_by_id(self.db, id)

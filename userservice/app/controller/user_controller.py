@@ -2,7 +2,7 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from core.database import get_db
-from schemas.user_schema import UserCreate, UserResponse, UserUpdate
+from schemas.user_schema import UserCreate, UserResponse, UserUpdate, UserReplace
 from service.user_service import UserService
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -32,10 +32,26 @@ async def get_user(id: int, db: AsyncSession = Depends(get_db)):
     return user
 
 @router.put("/{id}", response_model=UserResponse)
-async def update_user(id: int, user_data: UserUpdate, db: AsyncSession = Depends(get_db)):
+async def replace_user(id: int, user_data: UserReplace, db: AsyncSession = Depends(get_db)):
     service = UserService(db)
-    updated_user = await service.update_user_by_id(id, user_data)
+    updated_user = await service.replace_user_by_id(id, user_data)
     if not updated_user:
         raise HTTPException(status_code=404, detail="User not found")
     return updated_user
-     
+
+@router.patch("/{id}", response_model=UserResponse)
+async def update_user(id: int, user_data: UserUpdate, db: AsyncSession = Depends(get_db)):
+    service = UserService(db)
+    updated_user = await service.update_user_by_id(id, user_data)
+    if not update_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return updated_user
+
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_user(id: int, db: AsyncSession = Depends(get_db)):
+    service = UserService(db)
+    user = await service.delete_user_by_id(id)
+    if not user:
+        return HTTPException(status_code=404, detail="User not found")
+    return {"message": f"User with id {id} has been deleted successfully"}
+
