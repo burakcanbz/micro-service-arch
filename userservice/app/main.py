@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from controller import router
 from core import Base, engine
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI(title="User Service")
 

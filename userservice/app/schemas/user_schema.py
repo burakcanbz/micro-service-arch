@@ -27,3 +27,13 @@ class UserUpdate(BaseModel):
     name: Optional[str] = None
     email: Optional[str] = None
     password: Optional[str] = None
+
+# User Login type
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+# Token type
+class Token(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
