@@ -1,0 +1,1 @@
+from .publisher import send_user_registered_event

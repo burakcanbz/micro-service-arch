@@ -5,16 +5,20 @@ import com.example.orderservice.model.OrderItem;
 import com.example.orderservice.model.OrderStatus;
 import com.example.orderservice.logger.LoggerService;
 import com.example.orderservice.repository.OrderRepository;
+import com.example.orderservice.messaging.OrderPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 import java.util.Optional;
 
 @Service // Spring bean olarak işaretliyoruz, bu sayede DI ile kullanılabilir
 public class OrderService {
+
+    @Autowired
+    private OrderPublisher orderPublisher;
 
     @Autowired // OrderRepository beanini Spring otomatik inject edecek
     private OrderRepository orderRepository;
@@ -49,7 +53,11 @@ public class OrderService {
     public Order createOrder(Order order) {
         order.setStatus(OrderStatus.CREATED); // yeni sipariş statusünü CREATED yapıyoruz
         logger.info("order creating !");
-        return orderRepository.save(order);   // save metodu ile persist ediyoruz
+        Order createdOrder = orderRepository.save(order);   // save metodu ile persist ediyoruz
+        Map<String, Object> orderData = new HashMap<>();
+        orderData.put("id", createdOrder.getId());
+        orderPublisher.publishOrderCreated(orderData);
+        return createdOrder;
     }
 
     // 5. add Order Item to Order

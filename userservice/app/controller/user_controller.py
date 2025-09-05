@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from core.database import get_db
 from schemas.user_schema import UserCreate, UserResponse, UserUpdate, UserReplace, UserLogin, Token
+from messaging import send_user_registered_event
 from service.user_service import UserService
 from dependencies import get_current_user
 from utils import create_access_token
@@ -28,6 +29,11 @@ async def register_user(user: UserCreate, db: AsyncSession = Depends(get_db), cu
     new_user = await service.create_user(user)
     if new_user is None:
         raise HTTPException(status_code=400, detail="Email already registered")
+    await send_user_registered_event({
+        "type": "UserRegistered",
+        "user_id": new_user.id,
+        "email": new_user.email
+    })
     return new_user
 
 @router.get("/", response_model=List[UserResponse])
