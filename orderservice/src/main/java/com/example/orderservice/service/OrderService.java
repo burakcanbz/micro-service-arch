@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.*;
 import java.util.Optional;
@@ -25,6 +26,8 @@ public class OrderService {
 
     @Autowired
     private LoggerService logger;
+
+    private ObjectMapper mapper = new ObjectMapper();
 
     // 1. Belirli bir kullanıcıya ait tüm siparişleri getir
     public List<Order> getOrdersByUserId(String userId) {
@@ -54,8 +57,7 @@ public class OrderService {
         order.setStatus(OrderStatus.CREATED); // yeni sipariş statusünü CREATED yapıyoruz
         logger.info("order creating !");
         Order createdOrder = orderRepository.save(order);   // save metodu ile persist ediyoruz
-        Map<String, Object> orderData = new HashMap<>();
-        orderData.put("id", createdOrder.getId());
+        Map<String, Object> orderData = mapper.convertValue(createdOrder, Map.class);
         orderPublisher.publishOrderCreated(orderData);
         return createdOrder;
     }

@@ -22,12 +22,12 @@ public class RabbitConfig {
 
     @Bean
     public Queue userQueue() {
-        return new Queue("user.registered", true); // durable
+        return new Queue(ORDER_QUEUE, true); // durable
     }
 
     @Bean
     public Binding userBinding(Queue userQueue, TopicExchange topicExchange) {
-        return BindingBuilder.bind(userQueue).to(topicExchange).with("user.registered");
+        return BindingBuilder.bind(userQueue).to(topicExchange).with(ROUTING_KEY);
     }
 
     @Bean

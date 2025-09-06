@@ -4,10 +4,13 @@ import com.example.orderservice.model.Order;
 import com.example.orderservice.model.OrderItem;
 import com.example.orderservice.model.OrderStatus;
 import com.example.orderservice.service.OrderService;
+import com.example.orderservice.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.jsonwebtoken.Claims;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +18,9 @@ import java.util.Optional;
 @RestController // Bu sınıf REST endpointleri sunuyor
 @RequestMapping("/api/orders") // Tüm endpointler /api/orders base path altında
 public class OrderController {
+
+    @Autowired
+    private JwtService jwtService;
 
     @Autowired // DI ile service inject ediyoruz
     private OrderService orderService;
@@ -53,7 +59,11 @@ public class OrderController {
 
     // 4. Yeni bir sipariş oluştur
     @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
+    public ResponseEntity<Order> createOrder(@RequestHeader("Authorization") String authHeader, @RequestBody Order order) {
+        String token = authHeader.replace("Bearer ", "");
+        Claims claims = jwtService.verifyToken(token);
+        Integer userId = claims.get("id", Integer.class);
+        order.setUserId(String.valueOf(userId));
         Order createdOrder = orderService.createOrder(order);
         return ResponseEntity.ok(createdOrder);
     }

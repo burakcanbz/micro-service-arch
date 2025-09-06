@@ -20,7 +20,10 @@ async def login(user_login: UserLogin, db: AsyncSession = Depends(get_db)):
     user = await service.authenticate_user(user_login.email, user_login.password)
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
-    token = create_access_token({"sub": user_login.email})
+    user = await service.get_user_by_email(user_login.email)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+    token = create_access_token({"sub": str(user.email), "id": int(user.id)})
     return {"access_token": token, "token_type": "bearer"}
 
 @router.post("/user", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
