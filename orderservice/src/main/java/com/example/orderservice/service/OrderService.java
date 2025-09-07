@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.*;
 import java.util.Optional;
@@ -54,11 +55,19 @@ public class OrderService {
 
     // 4. Yeni bir sipariş oluştur
     public Order createOrder(Order order) {
-        order.setStatus(OrderStatus.CREATED); // yeni sipariş statusünü CREATED yapıyoruz
+        order.setStatus(OrderStatus.CREATED);
         logger.info("order creating !");
-        Order createdOrder = orderRepository.save(order);   // save metodu ile persist ediyoruz
-        Map<String, Object> orderData = mapper.convertValue(createdOrder, Map.class);
-        orderPublisher.publishOrderCreated(orderData);
+        Order createdOrder = orderRepository.save(order);
+
+        try {
+            String json = mapper.writeValueAsString(createdOrder);
+            orderPublisher.publishOrderCreated(json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            // Optionally: log and/or rethrow as runtime exception
+            throw new RuntimeException("Failed to serialize order to JSON", e);
+        }
+
         return createdOrder;
     }
 
