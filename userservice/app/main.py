@@ -1,3 +1,6 @@
+import redis.asyncio as redis
+import os
+
 from fastapi import FastAPI
 from controller import router
 from core import Base, engine

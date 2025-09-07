@@ -4,6 +4,9 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,23 +18,63 @@ public class RabbitConfig {
     public static final String ORDER_QUEUE = "order.created.queue";
     public static final String ROUTING_KEY = "order.created";
 
+    // --- Exchange ---
     @Bean
     public TopicExchange topicExchange() {
         return new TopicExchange(EXCHANGE);
     }
 
+    // --- Queue ---
     @Bean
-    public Queue userQueue() {
+    public Queue orderQueue() {
         return new Queue(ORDER_QUEUE, true); // durable
     }
 
+    // --- Binding ---
     @Bean
-    public Binding userBinding(Queue userQueue, TopicExchange topicExchange) {
-        return BindingBuilder.bind(userQueue).to(topicExchange).with(ROUTING_KEY);
+    public Binding orderBinding(Queue orderQueue, TopicExchange topicExchange) {
+        return BindingBuilder.bind(orderQueue).to(topicExchange).with(ROUTING_KEY);
     }
 
+    // --- JSON converter ---
     @Bean
     public Jackson2JsonMessageConverter jackson2JsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
+    }
+
+    // --- ConnectionFactory ---
+    @Bean
+    public CachingConnectionFactory connectionFactory() {
+        CachingConnectionFactory factory = new CachingConnectionFactory("localhost");
+        factory.setUsername("guest");
+        factory.setPassword("guest");
+
+        // enable publisher confirms and returns
+        factory.setPublisherConfirmType(CachingConnectionFactory.ConfirmType.CORRELATED);
+        factory.setPublisherReturns(true);
+
+        return factory;
+    }
+
+    @Bean
+    public RabbitTemplate rabbitTemplate(CachingConnectionFactory connectionFactory) {
+        RabbitTemplate template = new RabbitTemplate(connectionFactory);
+        template.setMandatory(true);
+
+        template.setConfirmCallback((correlationData, ack, cause) -> {
+            if (ack) {
+                System.out.println("✅ Order transmitted to exchange.!");
+            } else {
+                System.out.println("❌ Order not transmitted! Cause: " + cause);
+            }
+        });
+
+        template.setReturnsCallback(returned -> {
+            System.out.println("⚠️ Message not directed to queue:");
+            System.out.println("↳ ReplyText: " + returned.getReplyText());
+            System.out.println("↳ RoutingKey: " + returned.getRoutingKey());
+        });
+
+        return template;
     }
 }
