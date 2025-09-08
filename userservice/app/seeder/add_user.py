@@ -1,0 +1,30 @@
+import asyncio
+import asyncpg
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils.password import hash_password 
+
+
+DB_URL = "postgresql://admin:admin123@localhost:5432/users_db"
+
+async def add_user(name, email,hashed_password, role):
+    conn = await asyncpg.connect(DB_URL)
+    await conn.execute(
+        """
+        INSERT INTO users (name, email, hashed_password, role)
+        VALUES ($1, $2, $3, $4)
+        """,
+        name, email, hashed_password, role
+    )
+    await conn.close()
+    print(f"User {name} added!")
+
+async def delete_all_users():
+    conn = await asyncpg.connect(DB_URL)
+    await conn.execute("DELETE FROM users")  # tüm satırları siler
+    await conn.close()
+    print("All users deleted!")
+
+# asyncio.run(delete_all_users())
+asyncio.run(add_user("Burak Canbaz", "burak@gmail.com", hash_password("1234"), "admin"))
+asyncio.run(add_user("John Doe", "doe@gmail.com", hash_password("1234"), "user"))
