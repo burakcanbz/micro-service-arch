@@ -16,6 +16,7 @@ from models import User
 from utils import create_access_token, decode_access_token
 
 # TODO add global exception handler and logger 
+# TODO add docker.yaml for redis, rabbitmq, postgres
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
