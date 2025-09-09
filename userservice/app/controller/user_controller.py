@@ -15,6 +15,8 @@ from dependencies import get_current_user, require_roles, oauth2_scheme
 from models import User
 from utils import create_access_token, decode_access_token
 
+# TODO add global exception handler and logger 
+
 router = APIRouter(prefix="/users", tags=["Users"])
 
 @router.post("/login")
@@ -23,7 +25,7 @@ async def login(user_login: UserLogin, response: Response, db: AsyncSession = De
     user = await service.authenticate_user(user_login.email, user_login.password)
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
-    token = create_access_token({"sub": str(user.email), "id": int(user.id), "role": str(user.role)})
+    token = create_access_token({"email": str(user.email), "id": int(user.id), "role": str(user.role)})
     response.headers["Authorization"] = f"Bearer {token}"
     user_data = {
     "user_id": user.id,
@@ -84,7 +86,7 @@ async def get_user(id: int, db: AsyncSession = Depends(get_db), _: User = Depend
     print("user returned from DB!")
     return user
 
-@router.put("/{id}", response_model=UserResponse)
+@router.put("/{id}", response_model=UserResponse) # TODO add redis check if user exists in cache. If exist update user and update the data in the db.
 async def replace_user(id: int, user_data: UserReplace, db: AsyncSession = Depends(get_db), _: User = Depends(require_roles("admin", "moderator"))):
     service = UserService(db)
     updated_user = await service.replace_user_by_id(id, user_data)
@@ -92,19 +94,20 @@ async def replace_user(id: int, user_data: UserReplace, db: AsyncSession = Depen
         raise HTTPException(status_code=404, detail="User not found")
     return updated_user
 
-@router.patch("/{id}", response_model=UserResponse)
+@router.patch("/{id}", response_model=UserResponse) # TODO add redis check if user exists in cache. If exist update user and update the data in the db.
 async def update_user(id: int, user_data: UserUpdate, db: AsyncSession = Depends(get_db), _: User = Depends(require_roles("admin", "moderator"))):
     service = UserService(db)
     updated_user = await service.update_user_by_id(id, user_data)
-    if not update_user:
+    if not updated_user:
         raise HTTPException(status_code=404, detail="User not found")
     return updated_user
 
-@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT) # check user if exist in redis. If it is delete user from redis and delete user from db.
+# with an addition user delete should be published over rabbitmq to delete deleted users orders.
 async def delete_user(id: int, db: AsyncSession = Depends(get_db), _: User = Depends(require_roles("admin"))):
     service = UserService(db)
     user = await service.delete_user_by_id(id)
     if not user:
-        return HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404, detail="User not found")
     return {"message": f"User with id {id} has been deleted successfully"}
 

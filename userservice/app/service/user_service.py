@@ -9,7 +9,7 @@ class UserService:
 
     async def authenticate_user(self, email: str, password: str):
         existing_user = await crud_get_user_by_email(self.db, email)
-        if not existing_user or not verify_password(password, existing_user.hashed_password):
+        if not existing_user or not verify_password(password, existing_user.password):
             return None
         return existing_user
 

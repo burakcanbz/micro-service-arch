@@ -20,7 +20,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession
     if is_blacklisted:
         raise HTTPException(status_code=401, detail="Token revoked")
 
-    email = payload.get("sub") 
+    email = payload.get("email") 
     if not email:
         raise HTTPException(status_code=401, detail="Invalid token")
     user = await crud_get_user_by_email(db, email)
