@@ -7,11 +7,15 @@ class UserCreate(BaseModel):
     email: EmailStr
     password: str
 
+    class Config:
+        extra = "forbid"
+
 # Response Schema for user data
 class UserResponse(BaseModel):
     id: int
     name: str
     email: EmailStr
+    role: str
 
     class Config:
         orm_mode = True
@@ -22,11 +26,17 @@ class UserReplace(BaseModel):
     email: EmailStr
     password: str
 
+    class Config:
+        extra = "forbid"
+
 # Response Schema for user data
 class UserUpdate(BaseModel):
     name: Optional[str] = None
     email: Optional[str] = None
     password: Optional[str] = None
+    
+    class Config:
+        extra = "forbid"
 
 # User Login type
 class UserLogin(BaseModel):

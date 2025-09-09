@@ -13,12 +13,12 @@ class UserService:
             return None
         return existing_user
 
-    async def create_user(self, user_data: UserCreate):
+    async def create_user(self, user_data: UserCreate, role: str):
         existing_user = await crud_get_user_by_email(self.db, user_data.email)
         if existing_user:
             return None
         hashed = hash_password(user_data.password)
-        return await crud_create_user(self.db, user_data, hashed)
+        return await crud_create_user(self.db, user_data, hashed, role)
 
     async def get_users(self):
         return await crud_get_users(self.db)

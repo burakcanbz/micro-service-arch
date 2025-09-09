@@ -1,2 +1,4 @@
 2025-09-02T13:50:29.138Z [INFO]: GET /products in all products - Request received
 2025-09-02T13:50:29.207Z [INFO]: GET /products in all products - Response sent
+2025-09-08T10:49:45.382Z [INFO]: GET /products/68b2c785fc165d6994d0ad41 - Response sent
+2025-09-08T10:50:04.925Z [INFO]: GET /products/68b2c785fc165d6994d0ad41 - Response sent

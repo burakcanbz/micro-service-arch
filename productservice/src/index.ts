@@ -5,7 +5,6 @@ const PORT = process.env.PORT || 3000;
 
 import { connectRabbitMQ } from './messaging/rabbitmq';
 import { startOrderConsumer } from './messaging/consumer';
-import { publishProductCreated } from './messaging/publisher';
 
 (async () => {
   await connectRabbitMQ();

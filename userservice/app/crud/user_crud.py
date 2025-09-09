@@ -12,11 +12,12 @@ async def crud_get_user_by_email(db: AsyncSession, email: str):
     result = await db.execute(select(User).where(User.email == email))
     return result.scalars().first()
 
-async def crud_create_user(db: AsyncSession, user: UserCreate, hashed_password: str):
+async def crud_create_user(db: AsyncSession, user: UserCreate, hashed_password: str, role: str):
     new_user = User(
         email=user.email,
         name=user.name,
-        hashed_password=hashed_password
+        password=hashed_password,
+        role=role
     )
     db.add(new_user)
     await db.commit()
@@ -36,7 +37,7 @@ async def crud_replace_user_by_id(db: AsyncSession, user_id: int, user_data: Use
         if value is None:
             continue
         if field == "password":
-            setattr(user, "hashed_password", hash_password(value))
+            setattr(user, "password", hash_password(value))
         else:
             setattr(user, field, value)
     await db.commit()
@@ -54,7 +55,7 @@ async def crud_update_user_by_id(db: AsyncSession, user_id: int, user_data: User
         if value is None:
             continue
         if field == "password":
-            setattr(user, "hashed_password", hash_password(value))
+            setattr(user, "password", hash_password(value))
         else:
             setattr(user, field, value)
     await db.commit()

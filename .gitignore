@@ -5,3 +5,5 @@ demo
 *.DS_STORE
 *.mvn
 venv
+__pycache__/
+*.pyc

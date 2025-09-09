@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 // Zod doğrulama şeması
 export const productSchema = z.object({
-  id: z.string().min(10).max(12).regex(/^[a-zA-Z0-9_-]+$/, 'ID must be alphanumeric and 10-12 characters long.').optional(),
+  id: z.string().min(10).max(24).regex(/^[a-zA-Z0-9_-]+$/, 'ID must be alphanumeric and 10-12 characters long.').optional(),
   name: z.string().min(3, 'Product name must be at least 3 characters long.').max(100, 'Product name cannot exceed 100 characters.'),
   description: z.string().max(500, 'Description cannot exceed 500 characters.').optional(),
   price: z.number().min(0, 'Price must be a positive number.'),

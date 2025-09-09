@@ -7,14 +7,14 @@ from utils.password import hash_password
 
 DB_URL = "postgresql://admin:admin123@localhost:5432/users_db"
 
-async def add_user(name, email,hashed_password, role):
+async def add_user(name, email, password, role):
     conn = await asyncpg.connect(DB_URL)
     await conn.execute(
         """
-        INSERT INTO users (name, email, hashed_password, role)
+        INSERT INTO users (name, email, password, role)
         VALUES ($1, $2, $3, $4)
         """,
-        name, email, hashed_password, role
+        name, email, password, role
     )
     await conn.close()
     print(f"User {name} added!")
