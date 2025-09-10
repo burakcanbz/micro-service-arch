@@ -1,1 +1,1 @@
-from .publisher import send_user_registered_event
+from .publisher import send_user_registered_event, send_user_deleted_event

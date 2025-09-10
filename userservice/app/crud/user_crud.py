@@ -70,5 +70,3 @@ async def crud_delete_user_by_id(db: AsyncSession, user_id: int):
     await db.delete(user)
     await db.commit()
     return user
-    
-    
