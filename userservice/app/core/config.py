@@ -4,12 +4,12 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     REDIS_URL: str = "redis://localhost:6379"
-    DRIVERNAME: str
-    PGHOST: str
-    PGPORT: int
-    PGUSER: str
-    PGPASSWORD: str
-    PGDATABASE: str
+    DRIVERNAME: str = "postgresql+asyncpg"
+    PGHOST: str = "localhost"
+    PGPORT: int = 5432
+    PGUSER: str = "admin"
+    PGPASSWORD: str = "admin123"
+    PGDATABASE: str = "users_db"
 
     @property
     def db_url(self) -> URL:

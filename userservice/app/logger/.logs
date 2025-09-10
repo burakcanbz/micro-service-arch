@@ -1,0 +1,26 @@
+2025-09-10 22:00:54 | INFO | user-service | GET /login - Login request
+2025-09-10 22:00:54 | DEBUG | user-service | UserService initialized
+2025-09-10 22:00:54 | INFO | user-service | GET /login - Login successfull with email='burak@gmail.com'
+2025-09-10 22:01:16 | INFO | user-service | Attempting to get current user from token
+2025-09-10 22:01:16 | INFO | user-service | User authenticated: burak@gmail.com
+2025-09-10 22:01:16 | INFO | user-service | User 'burak@gmail.com' passed role check: ('admin',)
+2025-09-10 22:01:16 | INFO | user-service | GET / - All users get request.
+2025-09-10 22:01:16 | DEBUG | user-service | UserService initialized
+2025-09-10 22:01:16 | INFO | user-service | All users fetched successfully from db.
+2025-09-10 22:01:47 | INFO | user-service | Attempting to get current user from token
+2025-09-10 22:01:47 | INFO | user-service | User authenticated: burak@gmail.com
+2025-09-10 22:01:47 | INFO | user-service | User 'burak@gmail.com' passed role check: ('admin', 'moderator')
+2025-09-10 22:01:47 | INFO | user-service | GET /id - Get user by id.
+2025-09-10 22:01:47 | INFO | user-service | GET /id - User returned from Cache!
+2025-09-10 22:01:47 | DEBUG | user-service | UserService initialized
+2025-09-10 22:01:47 | INFO | user-service | User with id '7' fetched successfully from db.
+2025-09-10 22:01:47 | INFO | user-service | GET /id - User added to Cache.
+2025-09-10 22:01:47 | INFO | user-service | GET /id -  User returned from DB!
+2025-09-10 22:01:57 | INFO | user-service | Attempting to get current user from token
+2025-09-10 22:01:57 | INFO | user-service | User authenticated: burak@gmail.com
+2025-09-10 22:01:57 | INFO | user-service | User 'burak@gmail.com' passed role check: ('admin', 'moderator')
+2025-09-10 22:01:57 | INFO | user-service | GET /id - Get user by id.
+2025-09-10 22:01:57 | INFO | user-service | GET /id - User returned from Cache!
+2025-09-10 22:01:57 | DEBUG | user-service | UserService initialized
+2025-09-10 22:01:57 | INFO | user-service | User with id '72' fetched successfully from db.
+2025-09-10 22:01:57 | WARNING | user-service | GET /id - User not found with id:'72'

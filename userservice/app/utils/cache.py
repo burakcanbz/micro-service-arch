@@ -1,10 +1,10 @@
 import json
-from Optional
+from typing import Optional
 from core import redis_client as redis
 from schemas import UserResponse
 from models import User
 
-async def check_user_with_redis(id: String) -> Optional[UserResponse]:
+async def check_user_with_redis(id: str) -> Optional[UserResponse]:
     cached_user = await redis.get(f"user:{id}")
     if cached_user:
         user_dict = json.loads(cached_user)

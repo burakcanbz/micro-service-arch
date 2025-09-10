@@ -38,6 +38,6 @@ async def send_user_deleted_event(user_data: dict):
                 content_type="application/json",
                 delivery_mode=aio_pika.DeliveryMode.PERSISTENT  
             ),
-            routing_key="user.registered"
+            routing_key="user.deleted"
         )
         print(f"✅ Sent user_deleted event: {user_data}")
