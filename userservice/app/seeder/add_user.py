@@ -25,6 +25,9 @@ async def delete_all_users():
     await conn.close()
     print("All users deleted!")
 
-# asyncio.run(delete_all_users())
-asyncio.run(add_user("Burak Canbaz", "burak@gmail.com", hash_password("1234"), "admin"))
-asyncio.run(add_user("John Doe", "doe@gmail.com", hash_password("1234"), "user"))
+async def main():
+    await delete_all_users()
+    await add_user("Burak Canbaz", "burak@gmail.com", hash_password("1234"), "admin")
+    await add_user("John Doe", "doe@gmail.com", hash_password("1234"), "user")
+
+asyncio.run(main())
