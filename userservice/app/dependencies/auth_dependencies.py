@@ -15,6 +15,7 @@ logger = get_logger()
 
 async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
     logger.info("Attempting to get current user from token")
+    token = token.strip()
     payload = decode_access_token(token)
     if not payload:
         logger.warn("Invalid token received")

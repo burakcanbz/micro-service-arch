@@ -24,3 +24,90 @@
 2025-09-10 22:01:57 | DEBUG | user-service | UserService initialized
 2025-09-10 22:01:57 | INFO | user-service | User with id '72' fetched successfully from db.
 2025-09-10 22:01:57 | WARNING | user-service | GET /id - User not found with id:'72'
+2025-09-11 13:24:06 | INFO | user-service | GET /login - Login request
+2025-09-11 13:24:06 | DEBUG | user-service | UserService initialized
+2025-09-11 13:24:06 | INFO | user-service | User authentication failed with email: 'burasfk@gmail.com'
+2025-09-11 13:24:06 | WARNING | user-service | GET /login - Login failed unknown email='burasfk@gmail.com'
+2025-09-11 13:24:21 | INFO | user-service | GET /login - Login request
+2025-09-11 13:24:21 | DEBUG | user-service | UserService initialized
+2025-09-11 13:24:21 | INFO | user-service | User authentication failed with email: 'burasfk@gmail.com'
+2025-09-11 13:24:21 | WARNING | user-service | GET /login - Login failed unknown email='burasfk@gmail.com'
+2025-09-11 13:24:38 | INFO | user-service | GET /login - Login request
+2025-09-11 13:24:38 | DEBUG | user-service | UserService initialized
+2025-09-11 13:24:38 | INFO | user-service | User authentication failed with email: 'burasfk@gmail.com'
+2025-09-11 13:24:38 | WARNING | user-service | GET /login - Login failed unknown email='burasfk@gmail.com'
+2025-09-11 13:24:38 | WARNING | user-service | [HTTPException] 401 - Invalid credentials
+2025-09-11 13:25:29 | INFO | user-service | GET /login - Login request
+2025-09-11 13:25:29 | DEBUG | user-service | UserService initialized
+2025-09-11 13:25:29 | INFO | user-service | User authentication failed with email: 'burak@gmail.com'
+2025-09-11 13:25:29 | WARNING | user-service | GET /login - Login failed unknown email='burak@gmail.com'
+2025-09-11 13:25:29 | WARNING | user-service | [HTTPException] 401 - Invalid credentials
+2025-09-11 13:25:36 | INFO | user-service | GET /login - Login request
+2025-09-11 13:25:36 | DEBUG | user-service | UserService initialized
+2025-09-11 13:25:36 | INFO | user-service | User authentication failed with email: 'burak@gmail.com'
+2025-09-11 13:25:36 | WARNING | user-service | GET /login - Login failed unknown email='burak@gmail.com'
+2025-09-11 13:25:36 | WARNING | user-service | [HTTPException] 401 - Invalid credentials
+2025-09-11 13:25:43 | INFO | user-service | GET /login - Login request
+2025-09-11 13:25:43 | DEBUG | user-service | UserService initialized
+2025-09-11 13:25:43 | INFO | user-service | User authentication failed with email: 'burak@gmail.com'
+2025-09-11 13:25:43 | WARNING | user-service | GET /login - Login failed unknown email='burak@gmail.com'
+2025-09-11 13:25:43 | WARNING | user-service | [HTTPException] 401 - Invalid credentials
+2025-09-11 13:29:48 | INFO | user-service | GET /login - Login request
+2025-09-11 13:29:48 | DEBUG | user-service | UserService initialized
+2025-09-11 13:29:48 | INFO | user-service | GET /login - Login successfull with email='burak@gmail.com'
+2025-09-11 13:29:57 | INFO | user-service | Attempting to get current user from token
+2025-09-11 13:29:57 | WARNING | user-service | Invalid token received
+2025-09-11 13:29:57 | WARNING | user-service | [HTTPException] 401 - Invalid token
+2025-09-11 13:30:52 | INFO | user-service | Attempting to get current user from token
+2025-09-11 13:30:52 | WARNING | user-service | Invalid token received
+2025-09-11 13:30:52 | WARNING | user-service | [HTTPException] 401 - Invalid token
+2025-09-11 13:30:56 | INFO | user-service | GET /login - Login request
+2025-09-11 13:30:56 | DEBUG | user-service | UserService initialized
+2025-09-11 13:30:56 | INFO | user-service | GET /login - Login successfull with email='burak@gmail.com'
+2025-09-11 13:31:06 | INFO | user-service | Attempting to get current user from token
+2025-09-11 13:31:06 | WARNING | user-service | Invalid token received
+2025-09-11 13:31:06 | WARNING | user-service | [HTTPException] 401 - Invalid token
+2025-09-11 13:31:12 | INFO | user-service | Attempting to get current user from token
+2025-09-11 13:31:12 | WARNING | user-service | Invalid token received
+2025-09-11 13:31:12 | WARNING | user-service | [HTTPException] 401 - Invalid token
+2025-09-11 13:31:18 | INFO | user-service | GET /login - Login request
+2025-09-11 13:31:18 | DEBUG | user-service | UserService initialized
+2025-09-11 13:31:18 | INFO | user-service | GET /login - Login successfull with email='burak@gmail.com'
+2025-09-11 13:31:22 | INFO | user-service | GET /login - Login request
+2025-09-11 13:31:22 | DEBUG | user-service | UserService initialized
+2025-09-11 13:31:23 | INFO | user-service | GET /login - Login successfull with email='burak@gmail.com'
+2025-09-11 13:31:34 | INFO | user-service | Attempting to get current user from token
+2025-09-11 13:31:34 | WARNING | user-service | Invalid token received
+2025-09-11 13:31:34 | WARNING | user-service | [HTTPException] 401 - Invalid token
+2025-09-11 13:31:51 | INFO | user-service | Attempting to get current user from token
+2025-09-11 13:31:51 | WARNING | user-service | Invalid token received
+2025-09-11 13:31:51 | WARNING | user-service | [HTTPException] 401 - Invalid token
+2025-09-11 13:32:05 | INFO | user-service | Attempting to get current user from token
+2025-09-11 13:32:05 | WARNING | user-service | Invalid token received
+2025-09-11 13:32:05 | WARNING | user-service | [HTTPException] 401 - Invalid token
+2025-09-11 13:41:09 | INFO | user-service | GET /login - Login request
+2025-09-11 13:41:09 | DEBUG | user-service | UserService initialized
+2025-09-11 13:41:09 | INFO | user-service | GET /login - Login successfull with email='burak@gmail.com'
+2025-09-11 13:41:22 | INFO | user-service | Attempting to get current user from token
+2025-09-11 13:41:22 | WARNING | user-service | Invalid token received
+2025-09-11 13:41:22 | WARNING | user-service | [HTTPException] 401 - Invalid token
+2025-09-11 13:41:47 | INFO | user-service | Attempting to get current user from token
+2025-09-11 13:41:47 | WARNING | user-service | Invalid token received
+2025-09-11 13:41:47 | WARNING | user-service | [HTTPException] 401 - Invalid token
+2025-09-11 13:43:25 | INFO | user-service | Attempting to get current user from token
+2025-09-11 13:43:25 | WARNING | user-service | Invalid token received
+2025-09-11 13:43:25 | WARNING | user-service | [HTTPException] 401 - Invalid token
+2025-09-11 13:44:54 | INFO | user-service | Attempting to get current user from token
+2025-09-11 13:44:54 | INFO | user-service | User authenticated: burak@gmail.com
+2025-09-11 13:44:54 | INFO | user-service | User 'burak@gmail.com' passed role check: ('admin', 'moderator')
+2025-09-11 13:44:54 | INFO | user-service | GET /id - Get user by id.
+2025-09-11 13:44:54 | INFO | user-service | GET /id - User returned from Cache!
+2025-09-11 13:44:54 | DEBUG | user-service | UserService initialized
+2025-09-11 13:44:54 | INFO | user-service | User with id '2' fetched successfully from db.
+2025-09-11 13:44:54 | INFO | user-service | GET /id - User added to Cache.
+2025-09-11 13:44:54 | INFO | user-service | GET /id -  User returned from DB!
+2025-09-11 13:45:05 | INFO | user-service | POST /user - User create request.
+2025-09-11 13:45:05 | DEBUG | user-service | UserService initialized
+2025-09-11 13:45:05 | INFO | user-service | User created: dally@gmail.com with role: user.
+2025-09-11 13:45:05 | INFO | user-service | POST /user - User registered event published to user.registered queue.
+2025-09-11 13:46:03 | WARNING | user-service | [HTTPException] 404 - Not Found

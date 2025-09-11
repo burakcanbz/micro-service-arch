@@ -16,7 +16,6 @@ from logger import get_logger
 from utils import *
 
 # TODO add global exception handler
-# TODO add docker.yaml for redis, rabbitmq, postgres
 
 router = APIRouter(prefix="/users", tags=["Users"])
 logger = get_logger()
