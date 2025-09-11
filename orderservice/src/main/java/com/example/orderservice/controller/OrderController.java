@@ -60,6 +60,9 @@ public class OrderController {
     // 4. Yeni bir sipariş oluştur
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestHeader("Authorization") String authHeader, @RequestBody Order order) {
+        for (OrderItem item : order.getItems()) {
+            item.setOrder(order);
+        }
         String token = authHeader.replace("Bearer ", "");
         Claims claims = jwtService.verifyToken(token);
         Integer userId = claims.get("id", Integer.class);

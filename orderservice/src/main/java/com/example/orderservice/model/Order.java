@@ -1,5 +1,6 @@
 package com.example.orderservice.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class Order {
     // cascade -> Order silinirse veya kaydedilirse, item'lar da otomatik işlemlere dahil
     // orphanRemoval -> OrderItem Order'dan çıkarılırsa, db'den de silinsin
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<OrderItem> items = new ArrayList<>(); // boş liste ile başlatıyoruz, null gelmesin
 
     // Default constructor

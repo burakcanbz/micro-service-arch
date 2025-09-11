@@ -1,5 +1,6 @@
 package com.example.orderservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 // OrderItem tablosunu temsil eden entity
@@ -17,6 +18,7 @@ public class OrderItem {
     // ManyToOne ile Order ile ilişkilendiriyoruz
     @ManyToOne
     @JoinColumn(name = "order_id") // foreign key kolonu
+    @JsonBackReference
     private Order order;
 
     // Default constructor

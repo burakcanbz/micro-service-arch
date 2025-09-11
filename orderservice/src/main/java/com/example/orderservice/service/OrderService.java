@@ -92,7 +92,7 @@ public class OrderService {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
         if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
-            order.setStatus(OrderStatus.CANCELLED); // statusü CANCELLED yapıyoruz
+            order.setStatus(OrderStatus.CANCELED); // statusü CANCELLED yapıyoruz
             orderRepository.save(order);            // değişikliği kaydediyoruz
 
             logger.info("Order cancelled: " + orderId);
