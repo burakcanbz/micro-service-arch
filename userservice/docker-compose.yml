@@ -4,23 +4,36 @@ services:
   postgres:
     image: postgres:15
     container_name: users_postgres
-
     environment:
-      POSTGRES_USER: $(PGUSER)
-      POSTGRES_PASSWORD: $(PGPASSWORD)
-      POSTGRES_DB: $(PGDATABASE)
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${PGDATABASE}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PGUSER} -d ${PGDATABASE}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
 
   redis:
     image: redis:latest
     container_name: users_redis
     ports:
       - "6379:6379"
+    volumes:
+      - redis_data:/var/lib/redis/data
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -28,7 +41,17 @@ services:
     ports:
       - "5672:5672"   
       - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/data
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
 volumes:
-  postgres_data:
+  postgres_data: 
+  redis_data: 
+  rabbitmq_data:

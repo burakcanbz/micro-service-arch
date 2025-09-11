@@ -1,4 +1,3 @@
-import redis.asyncio as redis
 import os
 
 from fastapi import FastAPI
@@ -17,7 +16,7 @@ app = FastAPI(title="User Service")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origin=["*"],
+    allow_origins=["*"],
     allow_methods=["*"],
 )
 
