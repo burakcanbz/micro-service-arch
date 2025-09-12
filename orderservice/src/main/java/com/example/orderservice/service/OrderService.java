@@ -64,9 +64,7 @@ public class OrderService {
             orderPublisher.publishOrderCreated(json);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            // Optionally: log and/or rethrow as runtime exception
-            throw new RuntimeException("Failed to serialize order to JSON", e);
-        }
+            logger.error("Failed to publish order created event with order id: " + createdOrder.getId(), e);        }
 
         return createdOrder;
     }
@@ -78,10 +76,16 @@ public class OrderService {
         if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
             order.addItem(newItem);
-            orderRepository.save(order);
-
+            Order itemAddedOrder = orderRepository.save(order);
+            try{
+                String json = mapper.writeValueAsString(itemAddedOrder);
+                orderPublisher.publishOrderUpdated(json);
+            }
+            catch (Exception e) {
+                logger.error("Failed to publish order updated event with order id: " + itemAddedOrder.getId(), e);
+            }
             logger.info("Item added to order: " + orderId);
-            return Optional.of(order);
+            return Optional.of(itemAddedOrder);
         }
         logger.warn("Order item not found : " + orderId);
         return Optional.empty();
@@ -93,10 +97,17 @@ public class OrderService {
         if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
             order.setStatus(OrderStatus.CANCELED); // statusü CANCELLED yapıyoruz
-            orderRepository.save(order);            // değişikliği kaydediyoruz
+            Order canceledOrder = orderRepository.save(order);            // değişikliği kaydediyoruz
+            try{
+                String json = mapper.writeValueAsString(canceledOrder);
+                orderPublisher.publishOrderCanceled(json);
+            }
+            catch(Exception e) {
+                logger.error("Failed to publish order canceled event with order id: " + canceledOrder.getId() , e);
+            }
 
             logger.info("Order cancelled: " + orderId);
-            return Optional.of(order);
+            return Optional.of(canceledOrder);
         }
         logger.warn("Order not found: " + orderId);
         return Optional.empty(); // sipariş bulunmazsa boş dön
@@ -105,28 +116,44 @@ public class OrderService {
     // 7. Order'dan bir item silme
     public Optional<Order> removeItemFromOrder(Long orderId, Long itemId) {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
-
         if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
-
-            // Silinecek item'ı bul
             OrderItem itemToRemove = order.getItems().stream()
                     .filter(item -> item.getId().equals(itemId))
                     .findFirst()
                     .orElse(null);
-
             if (itemToRemove != null) {
-                // Order içinden çıkar ve ilişkiyi temizle
                 order.removeItem(itemToRemove);
-
-                logger.info("item removed from order: " + itemId);
-                // Değişiklikleri kaydet
-                orderRepository.save(order);
+                logger.info("Item removed from order: " + itemId);
+                Order updatedOrder = orderRepository.save(order);
+                try {
+                    String json = mapper.writeValueAsString(updatedOrder);
+                    orderPublisher.publishOrderUpdated(json);
+                } catch (Exception e) {
+                    logger.error("Failed to publish order updated event with order id: " + updatedOrder.getId(), e);
+                }
+                return Optional.of(updatedOrder);
+            } else {
+                logger.warn("Item not found in order: " + itemId);
+                return Optional.empty();
             }
-            logger.warn("item not found in order: " + itemId);
-            return Optional.of(order);
         }
+        return Optional.empty();
+    }
 
-        return Optional.empty(); // order bulunamadı
+    public boolean removeOrderById(Long orderId){
+        Optional<Order> optionalDeletingOrder = orderRepository.findById(orderId);
+        try{
+            String json = mapper.writeValueAsString(optionalDeletingOrder.get());
+            orderPublisher.publishOrderDeleted(json);
+        }
+        catch (Exception e) {
+            logger.error("Failed to publish order delete event with order id:" + optionalDeletingOrder.get().getId() , e);
+        }
+        if (optionalDeletingOrder.isPresent()) {
+            orderRepository.delete(optionalDeletingOrder.get());
+            return true;
+        }
+        return false;
     }
 }

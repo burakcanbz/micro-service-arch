@@ -4,7 +4,7 @@ from jose import jwt
 
 SECRET_KEY = "supersecret_supersecretkey12345678"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 1 * 300
 
 def create_access_token(data: dict) -> str:
     to_encode = data.copy()

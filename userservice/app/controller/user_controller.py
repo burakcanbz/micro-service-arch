@@ -50,7 +50,7 @@ async def register_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
     service = UserService(db)
     new_user = await service.create_user(user, role="user")
     if new_user is None:
-        logger.warn(f"POST /user - User creation request failed. Email already registered email:'{email}'")
+        logger.warn(f"POST /user - User creation request failed. Email already registered'")
         raise HTTPException(status_code=400, detail="Email already registered")
     await send_user_registered_event({
         "type": "UserRegistered",

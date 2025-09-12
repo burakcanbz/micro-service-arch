@@ -111,3 +111,126 @@
 2025-09-11 13:45:05 | INFO | user-service | User created: dally@gmail.com with role: user.
 2025-09-11 13:45:05 | INFO | user-service | POST /user - User registered event published to user.registered queue.
 2025-09-11 13:46:03 | WARNING | user-service | [HTTPException] 404 - Not Found
+2025-09-11 18:24:17 | INFO | user-service | GET /login - Login request
+2025-09-11 18:24:17 | DEBUG | user-service | UserService initialized
+2025-09-11 18:24:17 | INFO | user-service | User authentication failed with email: 'delly@gmail.com'
+2025-09-11 18:24:17 | WARNING | user-service | GET /login - Login failed unknown email='delly@gmail.com'
+2025-09-11 18:24:17 | WARNING | user-service | [HTTPException] 401 - Invalid credentials
+2025-09-11 18:24:34 | INFO | user-service | GET /login - Login request
+2025-09-11 18:24:34 | DEBUG | user-service | UserService initialized
+2025-09-11 18:24:34 | INFO | user-service | User authentication failed with email: 'delly@gmail.com'
+2025-09-11 18:24:34 | WARNING | user-service | GET /login - Login failed unknown email='delly@gmail.com'
+2025-09-11 18:24:34 | WARNING | user-service | [HTTPException] 401 - Invalid credentials
+2025-09-11 18:25:00 | INFO | user-service | GET /login - Login request
+2025-09-11 18:25:00 | DEBUG | user-service | UserService initialized
+2025-09-11 18:25:00 | INFO | user-service | User authentication failed with email: 'dally@gmail.com'
+2025-09-11 18:25:00 | WARNING | user-service | GET /login - Login failed unknown email='dally@gmail.com'
+2025-09-11 18:25:00 | WARNING | user-service | [HTTPException] 401 - Invalid credentials
+2025-09-11 18:25:07 | INFO | user-service | GET /login - Login request
+2025-09-11 18:25:07 | DEBUG | user-service | UserService initialized
+2025-09-11 18:25:07 | INFO | user-service | GET /login - Login successfull with email='dally@gmail.com'
+2025-09-11 19:19:38 | INFO | user-service | GET /login - Login request
+2025-09-11 19:19:38 | DEBUG | user-service | UserService initialized
+2025-09-11 19:19:39 | INFO | user-service | GET /login - Login successfull with email='dally@gmail.com'
+2025-09-11 19:21:45 | INFO | user-service | GET /login - Login request
+2025-09-11 19:21:45 | DEBUG | user-service | UserService initialized
+2025-09-11 19:21:45 | INFO | user-service | User authentication failed with email: 'burak@gmail.com'
+2025-09-11 19:21:45 | WARNING | user-service | GET /login - Login failed unknown email='burak@gmail.com'
+2025-09-11 19:21:45 | WARNING | user-service | [HTTPException] 401 - Invalid credentials
+2025-09-11 19:21:48 | INFO | user-service | GET /login - Login request
+2025-09-11 19:21:48 | DEBUG | user-service | UserService initialized
+2025-09-11 19:21:48 | INFO | user-service | GET /login - Login successfull with email='burak@gmail.com'
+2025-09-11 19:22:08 | INFO | user-service | POST /user - User create request.
+2025-09-11 19:22:08 | DEBUG | user-service | UserService initialized
+2025-09-11 19:22:08 | INFO | user-service | User created: user@gmail.com with role: user.
+2025-09-11 19:22:08 | INFO | user-service | POST /user - User registered event published to user.registered queue.
+2025-09-11 19:23:50 | INFO | user-service | POST /user - User create request.
+2025-09-11 19:23:50 | DEBUG | user-service | UserService initialized
+2025-09-11 19:23:50 | INFO | user-service | User creation failed: email 'user@gmail.com' already registered.
+2025-09-11 19:23:50 | ERROR | user-service | [UnhandledException] name 'email' is not defined
+Traceback (most recent call last):
+  File "/Users/burak/Desktop/Trial/api/userservice/venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/burak/Desktop/Trial/api/userservice/venv/lib/python3.13/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/burak/Desktop/Trial/api/userservice/venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/burak/Desktop/Trial/api/userservice/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/burak/Desktop/Trial/api/userservice/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/burak/Desktop/Trial/api/userservice/venv/lib/python3.13/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/burak/Desktop/Trial/api/userservice/venv/lib/python3.13/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/Users/burak/Desktop/Trial/api/userservice/venv/lib/python3.13/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/Users/burak/Desktop/Trial/api/userservice/venv/lib/python3.13/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/burak/Desktop/Trial/api/userservice/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/burak/Desktop/Trial/api/userservice/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/burak/Desktop/Trial/api/userservice/venv/lib/python3.13/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/burak/Desktop/Trial/api/userservice/venv/lib/python3.13/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/burak/Desktop/Trial/api/userservice/venv/lib/python3.13/site-packages/fastapi/routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/burak/Desktop/Trial/api/userservice/app/controller/user_controller.py", line 53, in register_user
+    logger.warn(f"POST /user - User creation request failed. Email already registered email:'{email}'")
+                                                                                              ^^^^^
+NameError: name 'email' is not defined. Did you mean: 'eval'? Or did you forget to import 'email'?
+2025-09-11 19:24:32 | INFO | user-service | POST /user - User create request.
+2025-09-11 19:24:32 | DEBUG | user-service | UserService initialized
+2025-09-11 19:24:32 | INFO | user-service | User creation failed: email 'user@gmail.com' already registered.
+2025-09-11 19:24:32 | WARNING | user-service | POST /user - User creation request failed. Email already registered'
+2025-09-11 19:24:32 | WARNING | user-service | [HTTPException] 400 - Email already registered
+2025-09-11 19:24:48 | INFO | user-service | POST /user - User create request.
+2025-09-11 19:24:48 | DEBUG | user-service | UserService initialized
+2025-09-11 19:24:49 | INFO | user-service | User created: try@gmail.com with role: user.
+2025-09-11 19:24:49 | INFO | user-service | POST /user - User registered event published to user.registered queue.
+2025-09-11 20:13:08 | INFO | user-service | POST /user - User create request.
+2025-09-11 20:13:08 | DEBUG | user-service | UserService initialized
+2025-09-11 20:13:08 | INFO | user-service | User created: bob@gmail.com with role: user.
+2025-09-11 20:13:08 | INFO | user-service | POST /user - User registered event published to user.registered queue.
+2025-09-11 20:21:49 | INFO | user-service | GET /login - Login request
+2025-09-11 20:21:49 | DEBUG | user-service | UserService initialized
+2025-09-11 20:21:49 | INFO | user-service | GET /login - Login successfull with email='burak@gmail.com'
+2025-09-11 20:56:43 | INFO | user-service | GET /login - Login request
+2025-09-11 20:56:43 | DEBUG | user-service | UserService initialized
+2025-09-11 20:56:44 | INFO | user-service | GET /login - Login successfull with email='burak@gmail.com'
+2025-09-11 21:57:22 | INFO | user-service | GET /login - Login request
+2025-09-11 21:57:22 | DEBUG | user-service | UserService initialized
+2025-09-11 21:57:22 | INFO | user-service | GET /login - Login successfull with email='burak@gmail.com'
+2025-09-11 22:04:29 | INFO | user-service | Attempting to get current user from token
+2025-09-11 22:04:29 | WARNING | user-service | Invalid token received
+2025-09-11 22:04:29 | WARNING | user-service | [HTTPException] 401 - Invalid token
+2025-09-11 22:04:38 | INFO | user-service | GET /login - Login request
+2025-09-11 22:04:38 | DEBUG | user-service | UserService initialized
+2025-09-11 22:04:39 | INFO | user-service | GET /login - Login successfull with email='burak@gmail.com'
+2025-09-11 22:04:47 | INFO | user-service | Attempting to get current user from token
+2025-09-11 22:04:47 | INFO | user-service | User authenticated: burak@gmail.com
+2025-09-11 22:04:47 | INFO | user-service | User 'burak@gmail.com' passed role check: ('admin',)
+2025-09-11 22:04:47 | INFO | user-service | GET / - All users get request.
+2025-09-11 22:04:47 | DEBUG | user-service | UserService initialized
+2025-09-11 22:04:47 | INFO | user-service | All users fetched successfully from db.
+2025-09-11 22:35:15 | INFO | user-service | GET /login - Login request
+2025-09-11 22:35:15 | DEBUG | user-service | UserService initialized
+2025-09-11 22:35:16 | INFO | user-service | GET /login - Login successfull with email='burak@gmail.com'
+2025-09-12 12:22:21 | INFO | user-service | GET /login - Login request
+2025-09-12 12:22:21 | DEBUG | user-service | UserService initialized
+2025-09-12 12:22:22 | INFO | user-service | GET /login - Login successfull with email='burak@gmail.com'
+2025-09-12 13:15:47 | INFO | user-service | GET /login - Login request
+2025-09-12 13:15:47 | DEBUG | user-service | UserService initialized
+2025-09-12 13:15:47 | INFO | user-service | GET /login - Login successfull with email='burak@gmail.com'
+2025-09-12 16:40:24 | INFO | user-service | POST /user - User create request.
+2025-09-12 16:40:24 | DEBUG | user-service | UserService initialized
+2025-09-12 16:40:24 | INFO | user-service | User created: denis@gmail.com with role: user.
+2025-09-12 16:40:24 | INFO | user-service | POST /user - User registered event published to user.registered queue.
